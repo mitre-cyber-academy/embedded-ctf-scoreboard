@@ -1,0 +1,18 @@
+AllCops:
+  Exclude:
+    - 'spec/**/*'
+    - 'tmp/**/*'
+    - 'db/**/*'
+    - 'config/initializers/*'
+    - 'log/**/*'
+    - 'test/**/*'
+    - 'vendor/**/*'
+  TargetRubyVersion: 2.2
+Rails:
+  Enabled: true
+
+Metrics/LineLength:
+  Max: 120
+
+Documentation:
+  Enabled: false

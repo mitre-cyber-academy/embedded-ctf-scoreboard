@@ -1,0 +1,14 @@
+- if current_user.admin?
+  .panel.panel-default
+    -# Generate tabs for each division with a name
+    %ul.nav.nav-tabs
+      -@divisions.each do |d|
+        %li{ :class => ('active' if @active_division.eql? d) }
+          = link_to "#{d.name}", "#division-#{d.id}-tab", "data-toggle"=>"tab"
+    .tab-content
+      -@divisions.each do |d|
+        .tab-pane{ :class => ('active' if @active_division.eql? d), :id => "division-#{d.id}-tab" }
+          = render partial: "challenges/gameboard", locals: { challenges: @challenges, categories: @categories, division: d }
+- else
+  .container-fluid
+    = render partial: "challenges/gameboard", locals: { challenges: @challenges, categories: @categories, division: current_user.division }
