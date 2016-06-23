@@ -5,35 +5,37 @@
   %table.table.table-bordered
     %thead
       %tr
-        %th{:style => "text-align:left;width:20%"}= "Teams"
-        - @categories[0].challenges.each do |c|
-          %th{ :style => "text-align:center;width:10%" }= c.name
-          - max = players.count
+        %th{:style => "text-align:left;width:#{1.0 / (@challenges.count+1).to_f * 100.0}%;"}= "Teams"
+        - @categories.count.times do |i|
+          - @categories[i].challenges.each do |c|
+            %th{ :style => "text-align:center;width: auto" }= c.name
+            - max = players.count
     %tbody
       - is_admin = current_user.admin?
       - max.times do |row|
         %tr
           %td= players[row].display_name
-          - @categories[0].challenges.count.times do |column|
-            - challenges = @categories[row].challenges
-            - if column < challenges.count
-              - challenge = challenges[column]
-              - is_solved = false
-              - style = "text-align:center;"
-              - if is_admin
-                - is_solved = challenge.solved?
+          - @categories.count.times do |i|
+            - @categories[i].challenges.count.times do |column|
+              - challenges = @categories[i].challenges
+              - if column < challenges.count
+                - challenge = challenges[column]
+                - is_solved = false
+                - style = "text-align:center;"
+                - if is_admin
+                  - is_solved = challenge.solved?
+                - else
+                  - is_solved = challenge.solved_by_user?(current_user)
+                - if challenge.force_closed?(division) && challenge.solved?
+                  - style << "color:DarkOrange;"
+                - elsif challenge.force_closed?(division)
+                  - style << "color:red;"
+                - elsif is_solved
+                  - style << "color:#08C;"
+                - elsif challenge.open?(division) || (is_admin && challenge.challenge_open?(division))
+                  - style << "color:green;"
+                - else
+                  - style << "color:gray;"
+                %td{ style: style }= link_to_if (is_admin || challenge.open?(division)), challenge.point_value, challenge, style: "color:inherit;"
               - else
-                - is_solved = challenge.solved_by_user?(current_user)
-              - if challenge.force_closed?(division) && challenge.solved?
-                - style << "color:DarkOrange;"
-              - elsif challenge.force_closed?(division)
-                - style << "color:red;"
-              - elsif is_solved
-                - style << "color:#08C;"
-              - elsif challenge.open?(division) || (is_admin && challenge.challenge_open?(division))
-                - style << "color:green;"
-              - else
-                - style << "color:gray;"
-              %td{ style: style }= link_to_if (is_admin || challenge.open?(division)), challenge.point_value, challenge, style: "color:inherit;"
-            - else
-              %td &nbsp;
+                %td &nbsp;
