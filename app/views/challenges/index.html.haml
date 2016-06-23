@@ -8,7 +8,7 @@
     .tab-content
       -@divisions.each do |d|
         .tab-pane{ :class => ('active' if @active_division.eql? d), :id => "division-#{d.id}-tab" }
-          = render partial: "challenges/gameboard", locals: { challenges: @challenges, categories: @categories, division: d }
+          = render partial: "challenges/gameboard", locals: { challenges: @challenges, categories: @categories, division: d, players: d.ordered_players }
 - else
   .container-fluid
     = render partial: "challenges/gameboard", locals: { challenges: @challenges, categories: @categories, division: current_user.division }

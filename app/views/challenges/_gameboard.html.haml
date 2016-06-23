@@ -5,17 +5,19 @@
   %table.table.table-bordered
     %thead
       %tr
-        - categories.each do |c|
-          %th{ :style => "text-align:center;width:#{1.0 / @categories.count.to_f * 100.0}%;" }= c.name
-          - max = [max, c.challenges.count].max
+        %th{:style => "text-align:left;width:20%"}= "Teams"
+        - @categories[0].challenges.each do |c|
+          %th{ :style => "text-align:center;width:10%" }= c.name
+          - max = players.count
     %tbody
       - is_admin = current_user.admin?
       - max.times do |row|
         %tr
-          - categories.count.times do |column|
-            - challenges = categories[column].challenges
-            - if row < challenges.count
-              - challenge = challenges[row]
+          %td= players[row].display_name
+          - @categories[0].challenges.count.times do |column|
+            - challenges = @categories[row].challenges
+            - if column < challenges.count
+              - challenge = challenges[column]
               - is_solved = false
               - style = "text-align:center;"
               - if is_admin
