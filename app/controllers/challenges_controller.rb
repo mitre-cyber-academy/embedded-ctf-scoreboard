@@ -62,9 +62,9 @@ class ChallengesController < ApplicationController
       if is_player
         SolvedChallenge.create(player: current_user, challenge: @challenge, flag: flag_found,
                                division: current_user.division)
-        redirect_to @challenge, notice: I18n.t('flag.accepted')
+         redirect_to @challenge
       else
-        redirect_to challenge_url(@challenge, flag: flag_found), notice: I18n.t('flag.accepted')
+        redirect_to challenge_url(@challenge, flag: flag_found)
         # flash.now[:notice] = I18n.t('teams.full_team') if team_captain? && !team_editable?
         # redirect_to @team, notice: I18n.t('teams.create_successful')
       end
