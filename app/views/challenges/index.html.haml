@@ -11,4 +11,4 @@
           = render partial: "challenges/gameboard", locals: { challenges: @challenges, categories: @categories, division: d, players: d.ordered_players }
 - else
   .container-fluid
-    = render partial: "challenges/gameboard", locals: { challenges: @challenges, categories: @categories, division: current_user.division }
+    = render partial: "challenges/gameboard", locals: { challenges: @challenges, categories: @categories, division: current_user.division, players: current_user }

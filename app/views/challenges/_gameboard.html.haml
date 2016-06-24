@@ -2,6 +2,7 @@
   .zero-items-text No Challenges
 - else
   - max = 0
+  - is_admin = current_user.admin?
   %table.table.table-bordered
     %thead
       %tr
@@ -9,12 +10,17 @@
         - @categories.count.times do |i|
           - @categories[i].challenges.each do |c|
             %th{ :style => "text-align:center;width: auto" }= c.name
-            - max = players.count
+            - if is_admin
+              - max = players.count
+            - else
+              - max = 1
     %tbody
-      - is_admin = current_user.admin?
       - max.times do |row|
         %tr
-          %td= players[row].display_name
+          - if is_admin
+            %td= players[row].display_name
+          - else
+            %td= players.display_name
           - @categories.count.times do |i|
             - @categories[i].challenges.count.times do |column|
               - challenges = @categories[i].challenges
