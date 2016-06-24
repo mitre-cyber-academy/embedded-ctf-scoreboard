@@ -22,7 +22,7 @@ class ChallengesController < ApplicationController
     @solved_video_url = @admin_flag.video_url if @admin_flag
     @solved_by = SolvedChallenge.where('challenge_id = :challenge',
                                        challenge: @challenge).order(:created_at).reverse_order
-    flash.now[:success] = I18.t('flag.accepted') if @solved || @admin_flag
+    flash.now[:success] = I18n.t('flag.accepted') if @solved || @admin_flag
     @title = @challenge.name
     @subtitle = pluralize(@challenge.point_value, 'point')
     @submitted_flags = to_timeline SubmittedFlag.where('challenge_id=?',
@@ -77,6 +77,5 @@ class ChallengesController < ApplicationController
 
   def find_challenge
     @challenge = @game.challenges.find(params[:id])
-    raise ActiveRecord::RecordNotFound if !current_user.admin? && !@challenge.open?(current_user.division)
   end
 end

@@ -38,10 +38,8 @@
                   - style << "color:red;"
                 - elsif is_solved
                   - style << "color:#08C;"
-                - elsif challenge.open?(division) || (is_admin && challenge.challenge_open?(division))
-                  - style << "color:green;"
                 - else
-                  - style << "color:gray;"
-                %td{ style: style }= link_to_if (is_admin || challenge.open?(division)), challenge.point_value, challenge, style: "color:inherit;"
+                  - style << "color:green;"
+                %td{ style: style }= link_to challenge.point_value, challenge, style: "color:inherit;"
               - else
                 %td &nbsp;
