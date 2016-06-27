@@ -40,6 +40,20 @@
                   - style << "color:#08C;"
                 - else
                   - style << "color:green;"
-                %td{ style: style }= link_to challenge.point_value, challenge, style: "color:inherit;"
+                - share_ratio = 1
+                - point_value = challenge.point_value
+                - total_shares = challenge.shares
+                - foundSolved = false
+                - @solvedChallenges.count.times do |j|
+                  - solved = @solvedChallenges[j]
+                  - if solved[:user_id] == current_user[:id] && solved[:challenge_id] == challenge.id
+                    - share_ratio = @solvedChallenges[j][:share_number].to_f / total_shares
+                    - foundSolved = true
+                - if !foundSolved
+                  - todaysGoingRateOfShares = 50 #change this to by dynamic by time
+                  - #calculate what the ratio would be if they completed it right now if they haven't completed it yet
+                  - share_ratio = todaysGoingRateOfShares.to_f / (total_shares + todaysGoingRateOfShares)
+                - point_value = challenge.point_value * share_ratio
+                %td{ style: style }= link_to point_value.to_i, challenge, style: "color:inherit;"
               - else
                 %td &nbsp;

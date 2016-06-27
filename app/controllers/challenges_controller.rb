@@ -5,6 +5,7 @@ class ChallengesController < ApplicationController
     @categories = @game.categories.includes(:challenges).order(:name)
     @challenges = @game.challenges
     @divisions = @game.divisions
+    @solvedChallenges = @game.solved_challenges
     # Only exists for the purpose of providing an active tab for admins.
     @active_division = @divisions.first
     @title = 'Challenges'
