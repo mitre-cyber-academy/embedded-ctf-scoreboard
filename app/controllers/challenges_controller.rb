@@ -17,11 +17,13 @@ class ChallengesController < ApplicationController
     # Accept the flag via GET request if the current user is an admin.
     @admin_flag = Flag.find(params[:flag]) if is_admin && params[:flag]
     @solved = @challenge.solved_by_user?(current_user)
+
     @solved_video_url = @challenge.get_video_url_for_flag(current_user)
     # Get video URL for admins
     @solved_video_url = @admin_flag.video_url if @admin_flag
     @solved_by = SolvedChallenge.where('challenge_id = :challenge',
                                        challenge: @challenge).order(:created_at).reverse_order
+
     flash.now[:success] = I18n.t('flag.accepted') if @solved || @admin_flag
     @title = @challenge.name
     @subtitle = pluralize(@challenge.point_value, 'point')
@@ -60,8 +62,14 @@ class ChallengesController < ApplicationController
       end
 
       if is_player
+        # Because a user solved it, increase the total shares by 50
+        sharesForUser = 50
+        @challenge[:shares] += sharesForUser
+        @challenge.save
+
         SolvedChallenge.create(player: current_user, challenge: @challenge, flag: flag_found,
-                               division: current_user.division)
+                               division: current_user.division, share_number: sharesForUser)
+
          redirect_to @challenge
       else
         redirect_to challenge_url(@challenge, flag: flag_found)

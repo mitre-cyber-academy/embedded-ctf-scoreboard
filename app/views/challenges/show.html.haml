@@ -30,6 +30,7 @@
         %th #
         %th Team
         %th Division
+        %th Shares
         %th When
     %tbody
       - @solved_by.each_with_index do |e, i|
@@ -37,4 +38,5 @@
           %td= i + 1
           %td= link_to e.player.display_name, e.player
           %td= e.player.division.name
+          %td= e.share_number
           %td= e.created_at.strftime("%b %e %y, %R %Z")

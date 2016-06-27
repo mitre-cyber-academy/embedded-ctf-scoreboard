@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20160422181517) do
     t.string   "name"
     t.text     "description"
     t.integer  "point_value"
+    t.integer  "shares"
     t.integer  "starting_state"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -61,6 +62,7 @@ ActiveRecord::Schema.define(version: 20160422181517) do
     t.integer  "point_value"
     t.integer  "flag_id"
     t.integer  "division_id"
+    t.integer  "share_number"
   end
 
   add_index "feed_items", ["division_id"], name: "index_feed_items_on_division_id"
