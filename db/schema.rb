@@ -40,6 +40,9 @@ ActiveRecord::Schema.define(version: 20160422181517) do
     t.integer  "share_decrement" # This is how much the share_increment will decrease after each elapsed time increment
     t.integer  "elapsed_time" # this is the amount of time in hours before an action is taken on shares (i.e. share_increment decreased by share_decrement after this amount of time)
     t.datetime "share_updated_at" # time when the share_increment field was last updated
+    t.integer  "point_increment" # this is the number of points the challenge will increase by if it hasn't been solved in point_elapsed_time
+    t.integer  "point_elapsed_time" # this is the amount of time in hours before the amount of points should raise b/c it hasn't been solved
+    t.datetime "point_updated_at" # time when the points was last raised due to no solves
     t.datetime "solved_at" # time when the challenge was first solved
     t.integer  "starting_state"
     t.datetime "created_at"

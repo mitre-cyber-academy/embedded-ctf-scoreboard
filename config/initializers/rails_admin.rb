@@ -124,6 +124,12 @@ RailsAdmin.config do |config|
       field :elapsed_time do
         help 'Required - The amount of time (in hours) before time based share actions occur'
       end
+      field :point_increment do
+        help 'Required - The number of points a challenge will raise by after not being solved after the elapsed time has passed'
+      end
+      field :point_elapsed_time do
+        help 'Required - The amount of time (in hours) before adding more points to the challenge if it is not yet solved'
+      end
       fields :starting_state, :category, :achievement_name
     end
   end

@@ -9,7 +9,8 @@ class Challenge < ActiveRecord::Base
 
   has_many :flags, dependent: :destroy, inverse_of: :challenge
 
-  validates :name, :point_value, :flags, :category_id, :shares, :share_increment, :share_decrement, :elapsed_time, presence: true
+  validates :name, :point_value, :flags, :category_id, :shares, :share_increment, :share_decrement, :elapsed_time,
+            :point_increment, :point_elapsed_time, presence: true
 
   enum starting_state: ChallengeState.states
 
