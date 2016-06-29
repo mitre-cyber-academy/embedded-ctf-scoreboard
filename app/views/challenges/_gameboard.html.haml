@@ -3,46 +3,42 @@
 - else
   - max = 0
   - is_admin = current_user.admin?
+  - players = @game.players
   %table.table.table-bordered
     %thead
       %tr
         %th{:style => "text-align:left;width:#{1.0 / (@challenges.count+1).to_f * 100.0}%;"}= "Teams"
         - @categories.count.times do |i|
-          - @categories[i].challenges.each do |c|
-            %th{ :style => "text-align:center;width: auto" }= c.name
-            - if is_admin
-              - max = players.count
-            - else
-              - max = 1
+          - (@categories[i].challenges.count/players.count).times do |j|
+            %th{ :style => "text-align:center;width: auto" }= 'Challenge ' + (j+1).to_s
+            - max = players.count
     %tbody
       - max.times do |row|
         %tr
-          - if is_admin
-            %td= players[row].display_name
-          - else
-            %td= players.display_name
+          %td= players[row].display_name
           - @categories.count.times do |i|
             - @categories[i].challenges.count.times do |column|
               - challenges = @categories[i].challenges
               - if column < challenges.count
                 - challenge = challenges[column]
-                - is_solved = false
-                - style = "text-align:center;"
-                - if is_admin
-                  - is_solved = challenge.solved?
-                - else
-                  - is_solved = challenge.solved_by_user?(current_user)
-                - if challenge.force_closed?(division) && challenge.solved?
-                  - style << "color:DarkOrange;"
-                - elsif challenge.force_closed?(division)
-                  - style << "color:red;"
-                - elsif is_solved
-                  - style << "color:#08C;"
-                - else
-                  - style << "color:green;"
+                - if challenge.user_id == players[row].id
+                  - is_solved = false
+                  - style = "text-align:center;"
+                  - if is_admin
+                    - is_solved = challenge.solved?
+                  - else
+                    - is_solved = challenge.solved_by_user?(current_user)
+                  - if challenge.force_closed?(division) && challenge.solved?
+                    - style << "color:DarkOrange;"
+                  - elsif challenge.force_closed?(division)
+                    - style << "color:red;"
+                  - elsif is_solved
+                    - style << "color:#08C;"
+                  - else
+                    - style << "color:green;"
 
-                - point_value = update_challenge(challenge)
+                  - point_value = update_challenge(challenge)
 
-                %td{ style: style }= link_to point_value.to_i, challenge, style: "color:inherit;"
+                  %td{ style: style }= link_to point_value.to_i, challenge, style: "color:inherit;"
               - else
                 %td &nbsp;

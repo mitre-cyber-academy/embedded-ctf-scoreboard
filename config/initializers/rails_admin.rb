@@ -111,10 +111,10 @@ RailsAdmin.config do |config|
 
   config.model Challenge do
     list do
-      fields :name, :point_value, :shares, :starting_state, :category
+      fields :name, :user_id, :division_id, :point_value, :shares, :starting_state, :category
     end
     edit do
-      fields :name, :description, :point_value, :shares
+      fields :name, :description, :user_id, :division_id, :point_value, :shares
       field :share_increment do
         help 'Required - The shares a team will receive upon completion'
       end
@@ -130,7 +130,16 @@ RailsAdmin.config do |config|
       field :point_elapsed_time do
         help 'Required - The amount of time (in hours) before adding more points to the challenge if it is not yet solved'
       end
+      field :defense_point_increment do
+        help 'Required - The number of points awarded to a team if they keep this challenge defended for a certain amount of time'
+      end
+      field :defense_elapsed_time do
+        help 'Required - The amount of time (in hours) before giving the team defence points for this challenge'
+      end
       fields :starting_state, :category, :achievement_name
+      field :point_elapsed_time do
+        help 'Required - The user who owns this challenge'
+      end
     end
   end
 

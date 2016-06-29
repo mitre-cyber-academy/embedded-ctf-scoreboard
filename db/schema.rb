@@ -44,10 +44,15 @@ ActiveRecord::Schema.define(version: 20160422181517) do
     t.integer  "point_elapsed_time" # this is the amount of time in hours before the amount of points should raise b/c it hasn't been solved
     t.datetime "point_updated_at" # time when the points was last raised due to no solves
     t.datetime "solved_at" # time when the challenge was first solved
+    t.integer  "defense_point_increment" # number of points added to a teams score when this challenge is uncaptured for period of time
+    t.integer  "defense_elapsed_time"
+    t.datetime "defense_updated_at"
     t.integer  "starting_state"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "category_id"
+    t.integer  "division_id"
+    t.integer  "user_id" #who owns this challenge
     t.string   "achievement_name"
   end
 

@@ -13,7 +13,7 @@
 %h2 Solved By
 = render partial: "events/timeline", locals: {id: "timeline", data: @submitted_flags}
 
-- if !@solved
+- if !@solved && (@challenge.user_id != current_user.id)
   = form_for @challenge, url: submit_flag_challenge_path(@challenge), method: "post", html: { class: "well", style: "margin-bottom:40px;" } do |f|
     .control-group
       %p Submit Flag
@@ -40,3 +40,12 @@
           %td= e.player.division.name
           %td= e.share_number
           %td= e.created_at.strftime("%b %e %y, %R %Z")
+- elsif @challenge.user_id == current_user.id
+  %table.table.table-bordered.table-striped
+    %thead
+      %tr
+        %th #
+        %th Team
+        %th Division
+        %th Shares
+        %th When

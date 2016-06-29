@@ -33,37 +33,95 @@ their meanings are as follows:\r\n<ul>\r\n<li><b style=\"color:green;\">Green:</
 
 
 division1 = Division.create!(name: "High School", game_id: game.id)
-division2 = Division.create!(name: "College", game_id: game.id)
 
 # players
-Player.create!(display_name: 'pwnies', email: 'pwnies', password: 'test123456', division_id: division1.id)
-Player.create!(display_name: 'n00bs', email: 'n00bs', password: 'test123456', division_id: division2.id)
+player1 = Player.create!(display_name: 'TeamA', email: 'TeamA', password: 'test123456', division_id: division1.id)
+player2 = Player.create!(display_name: 'TeamB', email: 'TeamB', password: 'test123456', division_id: division1.id)
+player3 = Player.create!(display_name: 'TeamC', email: 'TeamC', password: 'test123456', division_id: division1.id)
+player4 = Player.create!(display_name: 'TeamD', email: 'TeamD', password: 'test123456', division_id: division1.id)
 
 # crypto
 category = Category.create!(name: 'Crypto', game: game)
-Challenge.create!(name: 'Challenge A', point_value: 100, shares: 0, share_increment: 50, share_decrement: 1,
-                  elapsed_time: 1, point_increment: 100, point_elapsed_time: 12, flags: [ Flag.create(flag: "flag") ],
-                  starting_state: 'open', category: category)
-Challenge.create!(name: 'Challenge B', point_value: 100, shares: 0, share_increment: 50, share_decrement: 1,
-                  elapsed_time: 1, point_increment: 100, point_elapsed_time: 12, flags: [ Flag.create(flag: "flag") ],
-                  starting_state: 'open', category: category)
-Challenge.create!(name: 'Challenge C', point_value: 100, shares: 0, share_increment: 50, share_decrement: 1,
-                  elapsed_time: 1, point_increment: 100, point_elapsed_time: 12, flags: [ Flag.create(flag: "flag") ],
-                  starting_state: 'open', category: category)
-Challenge.create!(name: 'Challenge D', point_value: 100, shares: 0, share_increment: 50, share_decrement: 1,
-                  elapsed_time: 1, point_increment: 100, point_elapsed_time: 12, flags: [ Flag.create(flag: "flag") ],
-                  starting_state: 'open', category: category)
+Challenge.create!(name: 'Challenge A-1', point_value: 100, shares: 0, share_increment: 50, share_decrement: 1,
+                  elapsed_time: 1, point_increment: 100, point_elapsed_time: 12, defense_point_increment: 50,
+                  defense_elapsed_time: 12, flags: [ Flag.create(flag: "flag") ],
+                  starting_state: 'open', division_id: division1.id, user_id: player1.id,  category: category)
+Challenge.create!(name: 'Challenge A-2', point_value: 100, shares: 0, share_increment: 50, share_decrement: 1,
+                  elapsed_time: 1, point_increment: 100, point_elapsed_time: 12, defense_point_increment: 50,
+                  defense_elapsed_time: 12, flags: [ Flag.create(flag: "flag") ],
+                  starting_state: 'open', division_id: division1.id, user_id: player1.id, category: category)
+Challenge.create!(name: 'Challenge A-3', point_value: 100, shares: 0, share_increment: 50, share_decrement: 1,
+                  elapsed_time: 1, point_increment: 100, point_elapsed_time: 12, defense_point_increment: 50,
+                  defense_elapsed_time: 12, flags: [ Flag.create(flag: "flag") ],
+                  starting_state: 'open', division_id: division1.id, user_id: player1.id, category: category)
+Challenge.create!(name: 'Challenge A-4', point_value: 100, shares: 0, share_increment: 50, share_decrement: 1,
+                  elapsed_time: 1, point_increment: 100, point_elapsed_time: 12, defense_point_increment: 50,
+                  defense_elapsed_time: 12, flags: [ Flag.create(flag: "flag") ],
+                  starting_state: 'open', division_id: division1.id, user_id: player1.id, category: category)
+Challenge.create!(name: 'Challenge A-5', point_value: 100, shares: 0, share_increment: 50, share_decrement: 1,
+                  elapsed_time: 1, point_increment: 100, point_elapsed_time: 12, defense_point_increment: 50,
+                  defense_elapsed_time: 12, flags: [ Flag.create(flag: "flag") ],
+                  starting_state: 'open', division_id: division1.id, user_id: player1.id, category: category)
 
-category = Category.create!(name: 'Forensics', game: game)
-Challenge.create!(name: 'Challenge E', point_value: 100, shares: 0, share_increment: 50, share_decrement: 1,
-                  elapsed_time: 1, point_increment: 100, point_elapsed_time: 12, flags: [ Flag.create(flag: "flag") ],
-                  starting_state: 'open', category: category)
-Challenge.create!(name: 'Challenge F', point_value: 100, shares: 0, share_increment: 50, share_decrement: 1,
-                  elapsed_time: 1, point_increment: 100, point_elapsed_time: 12, flags: [ Flag.create(flag: "flag") ],
-                  starting_state: 'open', category: category)
-Challenge.create!(name: 'Challenge G', point_value: 100, shares: 0, share_increment: 50, share_decrement: 1,
-                  elapsed_time: 1, point_increment: 100, point_elapsed_time: 12, flags: [ Flag.create(flag: "flag") ],
-                  starting_state: 'open', category: category)
-Challenge.create!(name: 'Challenge H', point_value: 100, shares: 0, share_increment: 50, share_decrement: 1,
-                  elapsed_time: 1, point_increment: 100, point_elapsed_time: 12, flags: [ Flag.create(flag: "flag") ],
-                  starting_state: 'open', category: category)
+Challenge.create!(name: 'Challenge B-1', point_value: 100, shares: 0, share_increment: 50, share_decrement: 1,
+                  elapsed_time: 1, point_increment: 100, point_elapsed_time: 12, defense_point_increment: 50,
+                  defense_elapsed_time: 12, flags: [ Flag.create(flag: "flag") ],
+                  starting_state: 'open', division_id: division1.id, user_id: player2.id,  category: category)
+Challenge.create!(name: 'Challenge B-2', point_value: 100, shares: 0, share_increment: 50, share_decrement: 1,
+                  elapsed_time: 1, point_increment: 100, point_elapsed_time: 12, defense_point_increment: 50,
+                  defense_elapsed_time: 12, flags: [ Flag.create(flag: "flag") ],
+                  starting_state: 'open', division_id: division1.id, user_id: player2.id, category: category)
+Challenge.create!(name: 'Challenge B-3', point_value: 100, shares: 0, share_increment: 50, share_decrement: 1,
+                  elapsed_time: 1, point_increment: 100, point_elapsed_time: 12, defense_point_increment: 50,
+                  defense_elapsed_time: 12, flags: [ Flag.create(flag: "flag") ],
+                  starting_state: 'open', division_id: division1.id, user_id: player2.id, category: category)
+Challenge.create!(name: 'Challenge B-4', point_value: 100, shares: 0, share_increment: 50, share_decrement: 1,
+                  elapsed_time: 1, point_increment: 100, point_elapsed_time: 12, defense_point_increment: 50,
+                  defense_elapsed_time: 12, flags: [ Flag.create(flag: "flag") ],
+                  starting_state: 'open', division_id: division1.id, user_id: player2.id, category: category)
+Challenge.create!(name: 'Challenge B-5', point_value: 100, shares: 0, share_increment: 50, share_decrement: 1,
+                  elapsed_time: 1, point_increment: 100, point_elapsed_time: 12, defense_point_increment: 50,
+                  defense_elapsed_time: 12, flags: [ Flag.create(flag: "flag") ],
+                  starting_state: 'open', division_id: division1.id, user_id: player2.id, category: category)
+
+Challenge.create!(name: 'Challenge C-1', point_value: 100, shares: 0, share_increment: 50, share_decrement: 1,
+                  elapsed_time: 1, point_increment: 100, point_elapsed_time: 12, defense_point_increment: 50,
+                  defense_elapsed_time: 12, flags: [ Flag.create(flag: "flag") ],
+                  starting_state: 'open', division_id: division1.id, user_id: player3.id,  category: category)
+Challenge.create!(name: 'Challenge C-2', point_value: 100, shares: 0, share_increment: 50, share_decrement: 1,
+                  elapsed_time: 1, point_increment: 100, point_elapsed_time: 12, defense_point_increment: 50,
+                  defense_elapsed_time: 12, flags: [ Flag.create(flag: "flag") ],
+                  starting_state: 'open', division_id: division1.id, user_id: player3.id, category: category)
+Challenge.create!(name: 'Challenge C-3', point_value: 100, shares: 0, share_increment: 50, share_decrement: 1,
+                  elapsed_time: 1, point_increment: 100, point_elapsed_time: 12, defense_point_increment: 50,
+                  defense_elapsed_time: 12, flags: [ Flag.create(flag: "flag") ],
+                  starting_state: 'open', division_id: division1.id, user_id: player3.id, category: category)
+Challenge.create!(name: 'Challenge C-4', point_value: 100, shares: 0, share_increment: 50, share_decrement: 1,
+                  elapsed_time: 1, point_increment: 100, point_elapsed_time: 12, defense_point_increment: 50,
+                  defense_elapsed_time: 12, flags: [ Flag.create(flag: "flag") ],
+                  starting_state: 'open', division_id: division1.id, user_id: player3.id, category: category)
+Challenge.create!(name: 'Challenge C-5', point_value: 100, shares: 0, share_increment: 50, share_decrement: 1,
+                  elapsed_time: 1, point_increment: 100, point_elapsed_time: 12, defense_point_increment: 50,
+                  defense_elapsed_time: 12, flags: [ Flag.create(flag: "flag") ],
+                  starting_state: 'open', division_id: division1.id, user_id: player3.id, category: category)
+
+Challenge.create!(name: 'Challenge D-1', point_value: 100, shares: 0, share_increment: 50, share_decrement: 1,
+                  elapsed_time: 1, point_increment: 100, point_elapsed_time: 12, defense_point_increment: 50,
+                  defense_elapsed_time: 12, flags: [ Flag.create(flag: "flag") ],
+                  starting_state: 'open', division_id: division1.id, user_id: player4.id,  category: category)
+Challenge.create!(name: 'Challenge D-2', point_value: 100, shares: 0, share_increment: 50, share_decrement: 1,
+                  elapsed_time: 1, point_increment: 100, point_elapsed_time: 12, defense_point_increment: 50,
+                  defense_elapsed_time: 12, flags: [ Flag.create(flag: "flag") ],
+                  starting_state: 'open', division_id: division1.id, user_id: player4.id, category: category)
+Challenge.create!(name: 'Challenge D-3', point_value: 100, shares: 0, share_increment: 50, share_decrement: 1,
+                  elapsed_time: 1, point_increment: 100, point_elapsed_time: 12, defense_point_increment: 50,
+                  defense_elapsed_time: 12, flags: [ Flag.create(flag: "flag") ],
+                  starting_state: 'open', division_id: division1.id, user_id: player4.id, category: category)
+Challenge.create!(name: 'Challenge D-4', point_value: 100, shares: 0, share_increment: 50, share_decrement: 1,
+                  elapsed_time: 1, point_increment: 100, point_elapsed_time: 12, defense_point_increment: 50,
+                  defense_elapsed_time: 12, flags: [ Flag.create(flag: "flag") ],
+                  starting_state: 'open', division_id: division1.id, user_id: player4.id, category: category)
+Challenge.create!(name: 'Challenge D-5', point_value: 100, shares: 0, share_increment: 50, share_decrement: 1,
+                  elapsed_time: 1, point_increment: 100, point_elapsed_time: 12, defense_point_increment: 50,
+                  defense_elapsed_time: 12, flags: [ Flag.create(flag: "flag") ],
+                  starting_state: 'open', division_id: division1.id, user_id: player4.id, category: category)
