@@ -21,7 +21,7 @@
           %td{:class => "#{p.tags}"}
             = link_to p.display_name, p
           %td= p.achievements.count
-          %td= score
+          %td= score.to_i
           %td
             .progress{ :style => "margin:0;" }
               .bar{ :style => "width:#{percent}%;" }

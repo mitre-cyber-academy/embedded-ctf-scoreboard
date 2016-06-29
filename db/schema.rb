@@ -35,7 +35,12 @@ ActiveRecord::Schema.define(version: 20160422181517) do
     t.string   "name"
     t.text     "description"
     t.integer  "point_value"
-    t.integer  "shares"
+    t.integer  "shares" # this is the total shares (i.e. sum of all user's shares for this challenge)
+    t.integer  "share_increment" # This is the number of shares that each user will get when they complete it
+    t.integer  "share_decrement" # This is how much the share_increment will decrease after each elapsed time increment
+    t.integer  "elapsed_time" # this is the amount of time in hours before an action is taken on shares (i.e. share_increment decreased by share_decrement after this amount of time)
+    t.datetime "share_updated_at" # time when the share_increment field was last updated
+    t.datetime "solved_at" # time when the challenge was first solved
     t.integer  "starting_state"
     t.datetime "created_at"
     t.datetime "updated_at"

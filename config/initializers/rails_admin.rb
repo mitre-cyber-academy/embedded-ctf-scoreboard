@@ -111,7 +111,20 @@ RailsAdmin.config do |config|
 
   config.model Challenge do
     list do
-      fields :name, :point_value, :starting_state, :category
+      fields :name, :point_value, :shares, :starting_state, :category
+    end
+    edit do
+      fields :name, :description, :point_value, :shares
+      field :share_increment do
+        help 'Required - The shares a team will receive upon completion'
+      end
+      field :share_decrement do
+        help 'Required - How many fewer shares the challenge is worth after the elapsed time has passed'
+      end
+      field :elapsed_time do
+        help 'Required - The amount of time (in hours) before time based share actions occur'
+      end
+      fields :starting_state, :category, :achievement_name
     end
   end
 

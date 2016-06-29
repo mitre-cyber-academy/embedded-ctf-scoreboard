@@ -46,13 +46,27 @@
                 - foundSolved = false
                 - @solvedChallenges.count.times do |j|
                   - solved = @solvedChallenges[j]
-                  - if solved[:user_id] == current_user[:id] && solved[:challenge_id] == challenge.id
-                    - share_ratio = @solvedChallenges[j][:share_number].to_f / total_shares
-                    - foundSolved = true
+                  - if solved[:challenge_id] == challenge.id
+                    - solved_at = challenge.solved_at.to_datetime
+                    - last_updated = solved_at #initialize with solved_at in case we haven't set share_updated_at yet
+                    - if !challenge.share_updated_at.nil? # if we have set share_updated_at get the time, else go and do everything and set it
+                      - last_updated = challenge.share_updated_at.to_datetime
+                    - current_time = DateTime.current
+                    - if ((current_time - last_updated) * 24).to_i >= challenge.elapsed_time # if we haven't updated more recently than the time increment then update the shares
+                      - time_diff = ((current_time - solved_at) * 24).to_i # hours between when it was solved and now
+                      - time_changes_passed = (time_diff / challenge.elapsed_time).to_i # number of elapsed_times's passed
+                      - if time_changes_passed > 0
+                        - time_changes_passed.times do
+                          - challenge.share_increment -= challenge.share_decrement
+                          - challenge.share_updated_at = DateTime.current
+                          - challenge.save
+                    - if solved[:user_id] == current_user[:id]
+                      - share_ratio = @solvedChallenges[j][:share_number].to_f / total_shares
+                      - foundSolved = true
                 - if !foundSolved
-                  - todaysGoingRateOfShares = 50 #change this to by dynamic by time
+                  - going_rate_of_shares = challenge.share_increment
                   - #calculate what the ratio would be if they completed it right now if they haven't completed it yet
-                  - share_ratio = todaysGoingRateOfShares.to_f / (total_shares + todaysGoingRateOfShares)
+                  - share_ratio = going_rate_of_shares.to_f / (total_shares + going_rate_of_shares)
                 - point_value = challenge.point_value * share_ratio
                 %td{ style: style }= link_to point_value.to_i, challenge, style: "color:inherit;"
               - else

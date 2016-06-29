@@ -28,7 +28,7 @@
 						%tr
 							%td= i + 1
 							%td= s.challenge.category.name
-							%td= s.challenge.point_value
+							%td= (s.challenge.point_value * (s.share_number.to_f / s.challenge.shares)).to_i
 							%td= s.created_at.strftime("%b %e %y, %R %Z")
 
 	
