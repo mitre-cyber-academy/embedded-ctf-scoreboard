@@ -17,7 +17,11 @@ class ScoreAdjustment < FeedItem
       color = 'green'
       verb = 'increased'
     end
-    %(Score was #{verb} by <span style="color:#{color};">#{pluralize(points.abs, 'point')}</span>)
+    if !text.nil?
+      %(Score was #{verb} by <span style="color:#{color};">#{pluralize(points.abs, 'point')}</span> #{text})
+    else
+      %(Score was #{verb} by <span style="color:#{color};">#{pluralize(points.abs, 'point')}</span>)
+    end
   end
   # rubocop:enable MethodLength
 
