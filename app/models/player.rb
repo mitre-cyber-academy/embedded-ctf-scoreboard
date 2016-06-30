@@ -18,8 +18,13 @@ class Player < User
   def score
     points = 0
     solved_challenges.includes(:challenge).each do |s|
-      totalShares = Challenge.where('id = :challenge', challenge: s.challenge_id).first[:shares]
-      points += s.challenge.point_value * (s.share_number.to_f / totalShares)
+      total_shares = 0
+      SolvedChallenge.all.each do |c|
+        if c.challenge_id == s.challenge_id
+          total_shares += c.share_number
+        end
+      end
+      points += s.challenge.point_value * (s.share_number.to_f / total_shares)
     end
     score_adjustments.each do |a|
       points += a.point_value

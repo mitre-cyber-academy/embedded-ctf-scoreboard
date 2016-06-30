@@ -28,11 +28,13 @@ module ChallengesHelper
     end
     share_ratio = 1
     point_value = challenge.point_value
-    total_shares = challenge.shares
+    total_shares = 0
     foundSolved = false
+    user_solved = nil
     @solvedChallenges.count.times do |j|
       solved = @solvedChallenges[j]
       if solved[:challenge_id] == challenge.id
+        total_shares += solved[:share_number]
         solved_at = challenge.solved_at.to_datetime
         last_updated = solved_at #initialize with solved_at in case we haven't set share_updated_at yet
         if !challenge.share_updated_at.nil? # if we have set share_updated_at get the time, else go and do everything and set it
@@ -51,7 +53,7 @@ module ChallengesHelper
           end
         end
         if solved[:user_id] == current_user[:id]
-          share_ratio = @solvedChallenges[j][:share_number].to_f / total_shares
+          user_solved = solved
           foundSolved = true
         end
       end
@@ -60,6 +62,8 @@ module ChallengesHelper
       going_rate_of_shares = challenge.share_increment
       #calculate what the ratio would be if they completed it right now if they haven't completed it yet
       share_ratio = going_rate_of_shares.to_f / (total_shares + going_rate_of_shares)
+    else
+      share_ratio = user_solved[:share_number].to_f / total_shares
     end
     point_value = challenge.point_value * share_ratio #return point value to print in the table
   end

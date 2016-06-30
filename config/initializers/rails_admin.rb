@@ -114,7 +114,11 @@ RailsAdmin.config do |config|
       fields :name, :user_id, :division_id, :point_value, :shares, :starting_state, :category
     end
     edit do
-      fields :name, :description, :user_id, :division_id, :point_value, :shares
+      fields :name, :description
+      field :user_id do
+        help 'Required - The user who owns the challenge'
+      end
+      fields  :division_id, :point_value, :shares
       field :share_increment do
         help 'Required - The shares a team will receive upon completion'
       end

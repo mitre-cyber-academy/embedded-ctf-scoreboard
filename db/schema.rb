@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160422181517) do
+ActiveRecord::Schema.define(version: 20160630172545) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -35,25 +35,25 @@ ActiveRecord::Schema.define(version: 20160422181517) do
     t.string   "name"
     t.text     "description"
     t.integer  "point_value"
-    t.integer  "shares" # this is the total shares (i.e. sum of all user's shares for this challenge)
-    t.integer  "share_increment" # This is the number of shares that each user will get when they complete it
-    t.integer  "share_decrement" # This is how much the share_increment will decrease after each elapsed time increment
-    t.integer  "elapsed_time" # this is the amount of time in hours before an action is taken on shares (i.e. share_increment decreased by share_decrement after this amount of time)
-    t.datetime "share_updated_at" # time when the share_increment field was last updated
-    t.integer  "point_increment" # this is the number of points the challenge will increase by if it hasn't been solved in point_elapsed_time
-    t.integer  "point_elapsed_time" # this is the amount of time in hours before the amount of points should raise b/c it hasn't been solved
-    t.datetime "point_updated_at" # time when the points was last raised due to no solves
-    t.datetime "solved_at" # time when the challenge was first solved
-    t.integer  "defense_point_increment" # number of points added to a teams score when this challenge is uncaptured for period of time
-    t.integer  "defense_elapsed_time"
-    t.datetime "defense_updated_at"
     t.integer  "starting_state"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "category_id"
-    t.integer  "division_id"
-    t.integer  "user_id" #who owns this challenge
     t.string   "achievement_name"
+    t.integer  "point_increment"
+    t.integer  "point_elapsed_time"
+    t.datetime "point_updated_at"
+    t.datetime "solved_at"
+    t.integer  "division_id"
+    t.integer  "user_id"
+    t.integer  "shares"
+    t.integer  "share_increment"
+    t.integer  "share_decrement"
+    t.integer  "elapsed_time"
+    t.datetime "share_updated_at"
+    t.integer  "defense_point_increment"
+    t.integer  "defense_elapsed_time"
+    t.datetime "defense_updated_at"
   end
 
   create_table "divisions", force: :cascade do |t|
@@ -134,15 +134,6 @@ ActiveRecord::Schema.define(version: 20160422181517) do
   end
 
   add_index "rails_admin_histories", ["item", "table", "month", "year"], name: "index_rails_admin_histories"
-
-  create_table "states", force: :cascade do |t|
-    t.integer  "state"
-    t.integer  "challenge_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  add_index "states", ["challenge_id"], name: "index_states_on_challenge_id"
 
   create_table "submitted_flags", force: :cascade do |t|
     t.integer  "user_id"

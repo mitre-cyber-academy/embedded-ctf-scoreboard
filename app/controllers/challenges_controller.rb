@@ -64,8 +64,12 @@ class ChallengesController < ApplicationController
 
       if is_player
         # Because a user solved it, increase the total shares by shares_increment
-        sharesForUser = @challenge[:share_increment]
-        @challenge[:shares] += sharesForUser
+        shares_for_user = @challenge[:share_increment]
+        current_total = 0
+        @game.solved_challenges.each do |challenge|
+          current_total += challenge.share_number
+        end
+        @challenge[:shares] = shares_for_user
         @challenge.save
         if @challenge[:solved_at].nil?
           @challenge[:solved_at] = DateTime.current
@@ -73,7 +77,7 @@ class ChallengesController < ApplicationController
         end
 
         SolvedChallenge.create(player: current_user, challenge: @challenge, flag: flag_found,
-                               division: current_user.division, share_number: sharesForUser)
+                               division: current_user.division, share_number: @challenge[:share_increment])
 
          redirect_to @challenge
       else
