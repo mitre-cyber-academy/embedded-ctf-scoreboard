@@ -27,7 +27,11 @@
             %tr
               %td= i + 1
               %td= s.challenge.category.name
-              %td= (s.challenge.point_value * (s.share_number.to_f / s.challenge.shares)).to_i
+              - current_total = 0
+              - @game.solved_challenges.each do |challenge|
+                - if challenge.challenge_id == s.challenge_id
+                  - current_total += challenge.share_number
+              %td= (s.challenge.point_value * (s.share_number.to_f / current_total)).to_i
               %td= s.created_at.strftime("%b %e %y, %R %Z")
 
   
