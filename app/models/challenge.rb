@@ -17,7 +17,7 @@ class Challenge < ActiveRecord::Base
   accepts_nested_attributes_for :flags, allow_destroy: true
 
   # Handles the ordering of all returned challenge objects.
-  default_scope -> { order(:point_value, :name) }
+  default_scope -> { order(:id) } # could add an order parameter to the db too, for now will order based upon id (which is ordered by creation time)
 
   attr_accessor :submitted_flag
 
@@ -68,6 +68,40 @@ class Challenge < ActiveRecord::Base
     challenge_state.state = new_state
     challenge_state.save
   end
+
+  # adds the defensive points to the player if they have held it uncaptured for long enough
+  def update_defensive_points
+    Player.all.each do |player|
+      point_value = 0
+      Challenge.all.each do |challenge|
+        if challenge.user_id == player.id
+          if !challenge.solved?
+            created_at = challenge.created_at.to_datetime
+            current_time = DateTime.current
+            last_updated = created_at #initialize with created_at in case we haven't updated points yet
+            if !challenge.defense_updated_at.nil?
+              last_updated = challenge.defense_updated_at.to_datetime
+            end
+            time_passed = ((current_time - last_updated) * 24).to_i # the amount of time passed since either when it was created or last_updated
+            if time_passed >= challenge.defense_elapsed_time # if we haven't updated defensive points more recently than the time increment then do it
+              time_changes_passed = (time_passed / challenge.defense_elapsed_time).to_i # number of elapsed_times's passed
+              if time_changes_passed > 0
+                time_changes_passed.times do
+                  point_value += challenge.defense_point_increment
+                  challenge.defense_updated_at = DateTime.current
+                  challenge.save
+                end
+              end
+            end
+          end
+        end
+      end
+      if point_value > 0
+        ScoreAdjustment.create!(player: player, point_value: point_value, text: 'for defending flags!')
+      end
+    end
+  end
+  handle_asynchronously :update_defensive_points
 
   private
 

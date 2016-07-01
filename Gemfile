@@ -10,6 +10,8 @@ gem 'jbuilder'
 gem 'kaminari'
 gem 'geocoder'
 gem 'jquery-rails'
+gem 'delayed_job_active_record'
+gem 'daemons'
 
 group :development do
   gem 'sqlite3'

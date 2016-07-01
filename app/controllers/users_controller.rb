@@ -9,6 +9,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @challenge = Challenge.all
     @player = Player.find(params[:id])
     @players = [@player]
 
