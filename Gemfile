@@ -10,11 +10,11 @@ gem 'jbuilder'
 gem 'kaminari'
 gem 'geocoder'
 gem 'jquery-rails'
+gem 'pg'
 gem 'delayed_job_active_record'
 gem 'daemons'
 
 group :development do
-  gem 'sqlite3'
   gem 'bullet'
 end
 
@@ -35,5 +35,5 @@ group :assets do
 end
 
 group :production do
-  gem 'pg'
+  gem 'passenger'
 end
