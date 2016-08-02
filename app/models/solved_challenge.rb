@@ -8,7 +8,7 @@ class SolvedChallenge < FeedItem
   belongs_to :division
 
   def description
-    %(Solved challenge "#{challenge.category.name} #{challenge.point_value}")
+    %(Solved challenge "#{challenge.name} #{challenge.point_value}")
   end
 
   def icon
