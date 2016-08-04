@@ -12,6 +12,11 @@ namespace :scoreboard do
         puts 'User Exists'
       end
     end
+
+    desc 'Update defensive points for players'
+    task update_defensive_points: [:environment] do
+      Challenge.update_defensive_points
+    end
   end
 
   namespace :db do
