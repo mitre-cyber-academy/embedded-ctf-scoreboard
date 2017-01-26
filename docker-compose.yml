@@ -1,4 +1,7 @@
 version: '2'
+volumes:
+  embedded-scoreboard-db:
+    driver: local
 services:
   web:
     image: mitrectf/embedded-ctf-scoreboard
@@ -11,5 +14,5 @@ services:
   db:
     image: postgres
     volumes:
-      - .:/embedded-ctf-scoreboard-db
-    restart: unless-stoppedx
+      - embedded-scoreboard-db:/var/lib/postgresql/data
+    restart: unless-stopped
