@@ -73,6 +73,8 @@ class Challenge < ActiveRecord::Base
 
   # adds the defensive points to the player if they have held it uncaptured for long enough
   def self.update_defensive_points
+    return unless Game.first.open?
+
     Player.all.includes(:challenges).each do |player|
       point_value = 0
       player.challenges.each do |challenge|
