@@ -39,6 +39,6 @@
 
                   - point_value = update_challenge(challenge)
 
-                  %td{ style: style }= link_to point_value.to_i, challenge, style: "color:inherit;"
+                  %td{ style: style }= link_to point_value.to_i, challenge, style: "color:inherit;", title: challenge.name
               - else
                 %td &nbsp;
