@@ -16,6 +16,7 @@ gem 'daemons'
 
 group :development do
   gem 'bullet'
+  gem 'pry'
 end
 
 group :test do
