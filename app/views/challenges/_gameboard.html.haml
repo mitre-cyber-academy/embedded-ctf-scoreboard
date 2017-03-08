@@ -1,27 +1,24 @@
 - if challenges.count == 0
   .zero-items-text No Challenges
 - else
-  - max = 0
   - is_admin = current_user.admin?
   - players = @game.players
   %table.table.table-bordered
     %thead
       %tr
         %th{:style => "text-align:left;width:#{1.0 / (@challenges.count+1).to_f * 100.0}%;"}= "Teams"
-        - @categories.count.times do |i|
-          - (@categories[i].challenges.count/players.count).times do |j|
-            %th{ :style => "text-align:center;width: auto" }= 'Challenge ' + (j+1).to_s
-            - max = players.count
+        - @categories.each do |category|
+          %th{ :style => "text-align:center;width: auto" }= category.name
     %tbody
-      - max.times do |row|
+      - players.each do |player|
         %tr
-          %td= players[row].display_name
-          - @categories.count.times do |i|
-            - @categories[i].challenges.count.times do |column|
-              - challenges = @categories[i].challenges
+          %td= player.display_name
+          - @categories.each do |category|
+            - category.challenges.count.times do |column|
+              - challenges = category.challenges
               - if column < challenges.count
                 - challenge = challenges[column]
-                - if challenge.user_id == players[row].id
+                - if challenge.user_id == player.id
                   - is_solved = false
                   - style = "text-align:center;"
                   - if is_admin
