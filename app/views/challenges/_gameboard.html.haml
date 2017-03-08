@@ -6,7 +6,7 @@
   %table.table.table-bordered
     %thead
       %tr
-        %th{:style => "text-align:left;width:#{1.0 / (@challenges.count+1).to_f * 100.0}%;"}= "Teams"
+        %th{:style => "text-align:left;width: auto"}= "Teams"
         - @categories.each do |category|
           %th{ :style => "text-align:center;width: auto" }= category.name
     %tbody
@@ -14,28 +14,25 @@
         %tr
           %td= player.display_name
           - @categories.each do |category|
-            - category.challenges.count.times do |column|
-              - challenges = category.challenges
-              - if column < challenges.count
-                - challenge = challenges[column]
-                - if challenge.user_id == player.id
-                  - is_solved = false
-                  - style = "text-align:center;"
-                  - if is_admin
-                    - is_solved = challenge.solved?
-                  - else
-                    - is_solved = challenge.solved_by_user?(current_user)
-                  - if challenge.force_closed?(division) && challenge.solved?
-                    - style << "color:DarkOrange;"
-                  - elsif challenge.force_closed?(division)
-                    - style << "color:red;"
-                  - elsif is_solved
-                    - style << "color:#08C;"
-                  - else
-                    - style << "color:green;"
+            - category.challenges.each do |challenge|
+              - if challenge.user_id == player.id
+                - is_solved = false
+                - style = "text-align:center;"
+                - if is_admin
+                  - is_solved = challenge.solved?
+                - else
+                  - is_solved = challenge.solved_by_user?(current_user)
+                - if challenge.force_closed?(division) && challenge.solved?
+                  - style << "color:DarkOrange;"
+                - elsif challenge.force_closed?(division)
+                  - style << "color:red;"
+                - elsif is_solved
+                  - style << "color:#08C;"
+                - else
+                  - style << "color:green;"
 
-                  - point_value = update_challenge(challenge)
+                - point_value = update_challenge(challenge)
 
-                  %td{ style: style }= link_to point_value.to_i, challenge, style: "color:inherit;", title: challenge.name
+                %td{ style: style }= link_to point_value.to_i, challenge, style: "color:inherit;", title: challenge.name
               - else
                 %td &nbsp;
