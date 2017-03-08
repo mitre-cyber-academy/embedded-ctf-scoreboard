@@ -14,8 +14,9 @@
         %tr
           %td= player.display_name
           - @categories.each do |category|
-            - category.challenges.each do |challenge|
-              - if challenge.user_id == player.id
+            - player_challenges = player.challenges.where(category: category)
+            - unless player_challenges.empty?
+              - player.challenges.where(category: category).each do |challenge|
                 - is_solved = false
                 - style = "text-align:center;"
                 - if is_admin
@@ -34,5 +35,5 @@
                 - point_value = update_challenge(challenge)
 
                 %td{ style: style }= link_to point_value.to_i, challenge, style: "color:inherit;", title: challenge.name
-              - else
-                %td &nbsp;
+            - else
+              %td &nbsp;
