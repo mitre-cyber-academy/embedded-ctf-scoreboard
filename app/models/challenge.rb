@@ -80,13 +80,12 @@ class Challenge < ActiveRecord::Base
       latest_updated = 0
       player.challenges.each do |challenge|
         if !challenge.solved?
-          created_at = challenge.created_at.to_datetime
-          last_updated = created_at #initialize with created_at in case we haven't updated points yet
-          if challenge.defense_updated_at.nil? # Set initial defense_updated_at to beginning of game
-            challenge.defense_updated_at = Game.first.start
+          # Initial defense_updated_at os beginning of game or challenge created_at time, whichever comes last
+          if challenge.defense_updated_at.nil?
+            challenge.defense_updated_at = challenge.created_at < Game.first.start ? Game.first.start : challenge.created_at
           end
-          last_updated = challenge.defense_updated_at.to_datetime
-          time_passed = ((DateTime.current - last_updated) * 24).to_i # the amount of time passed since either when it was last_updated
+          # the amount of time passed since either when it was last_updated
+          time_passed = ((DateTime.current - challenge.defense_updated_at) / 3600).to_i
           if time_passed >= challenge.defense_elapsed_time # if we haven't updated defensive points more recently than the time increment then do it
             time_changes_passed = (time_passed / challenge.defense_elapsed_time).to_i # number of elapsed_times's passed
             if time_changes_passed > 0
