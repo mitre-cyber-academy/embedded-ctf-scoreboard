@@ -77,6 +77,7 @@ class Challenge < ActiveRecord::Base
 
     Player.all.includes(:challenges).each do |player|
       point_value = 0
+      latest_updated = 0
       player.challenges.each do |challenge|
         if !challenge.solved?
           created_at = challenge.created_at.to_datetime
@@ -91,13 +92,14 @@ class Challenge < ActiveRecord::Base
             if time_changes_passed > 0
               point_value += challenge.defense_point_increment * time_changes_passed
               challenge.defense_updated_at += (time_changes_passed * challenge.defense_elapsed_time.hours)
+              latest_updated = challenge.defense_updated_at if challenge.defense_updated_at > latest_updated
               challenge.save
             end
           end
         end
       end
       if point_value > 0
-        ScoreAdjustment.create!(player: player, point_value: point_value, text: 'for defending flags!')
+        ScoreAdjustment.create!(player: player, point_value: point_value, text: 'for defending flags!', created_at: latest_updated)
       end
     end
   end
