@@ -6,9 +6,6 @@
 - if @events.count == 0
   .zero-items-text No Events
 - else
-  %h4{:class=>"small muted"}
-    Flags/Min:
-  = render partial: "events/timeline", locals: {id: 'timeline', data: @submitted_flags}
   %table.table.table-bordered.table-striped
     %thead
       %tr
