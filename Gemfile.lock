@@ -38,11 +38,11 @@ GEM
       tzinfo (~> 1.1)
     arel (6.0.3)
     ast (2.3.0)
-    aws-sdk (1.66.0)
-      aws-sdk-v1 (= 1.66.0)
-    aws-sdk-v1 (1.66.0)
+    aws-sdk (1.67.0)
+      aws-sdk-v1 (= 1.67.0)
+    aws-sdk-v1 (1.67.0)
       json (~> 1.4)
-      nokogiri (>= 1.4.4)
+      nokogiri (~> 1)
     bcrypt (3.1.11)
     bluecloth (2.2.0)
     brakeman (3.3.2)
@@ -106,7 +106,7 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
-    json (1.8.3)
+    json (1.8.6)
     kaminari (0.17.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -123,9 +123,8 @@ GEM
     minitest (5.9.0)
     multi_json (1.12.1)
     nested_form (0.3.2)
-    nokogiri (1.6.8)
+    nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
-      pkg-config (~> 1.1.7)
     orm_adapter (0.5.0)
     parser (2.3.1.2)
       ast (~> 2.2)
@@ -133,7 +132,6 @@ GEM
       rack
       rake (>= 0.8.1)
     pg (0.18.4)
-    pkg-config (1.1.7)
     powerpack (0.1.1)
     pry (0.10.4)
       coderay (~> 1.1.0)
@@ -284,4 +282,4 @@ DEPENDENCIES
   uglifier
 
 BUNDLED WITH
-   1.13.7
+   1.14.6
